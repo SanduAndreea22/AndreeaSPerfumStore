@@ -135,8 +135,170 @@ body {
 	}
 }
 
+/* ========================= */
+/* === NAVBAR SECTION === */
+/* ========================= */
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.85);
+	padding: 15px 25px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	position: sticky;
+	top: 0;
+	z-index: 100;
+	border-bottom: 2px solid var(--accent);
+	backdrop-filter: blur(6px);
+	animation: navbarFade 0.8s ease forwards;
+	opacity: 0;
+	transform: translateY(-20px);
+}
 
+@keyframes navbarFade {
+	from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
 
+/* === LOGO ANIMAT === */
+.navbar-logo {
+	position: relative;
+	font-size: 1.6rem;
+	font-weight: 800;
+	text-decoration: none;
+	color: var(--primary);
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	overflow: hidden;
+}
 
+.navbar-logo::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		120deg,
+		transparent 0%,
+		rgba(255, 255, 255, 0.6) 50%,
+		transparent 100%
+	);
+	transform: skewX(-20deg);
+	animation: shimmer 3s infinite;
+}
 
+@keyframes shimmer {
+	0% { left: -100%; }
+	100% { left: 100%; }
+}
 
+.navbar-logo:hover {
+	color: var(--highlight);
+	text-shadow: 0 0 10px rgba(155, 93, 224, 0.6);
+}
+
+/* === Link-uri navbar === */
+.navbar-links {
+	display: flex;
+	align-items: center;
+	gap: 20px;
+}
+
+.navbar-links a {
+	text-decoration: none;
+	color: var(--text-dark);
+	font-weight: 600;
+	font-size: 1rem;
+	transition: color 0.3s ease;
+}
+
+.navbar-links a:hover {
+	color: var(--highlight);
+}
+
+/* === Cart Button === */
+.cart-icon {
+	position: relative;
+	background-color: var(--primary);
+	color: #fff;
+	padding: 8px 15px;
+	border-radius: 20px;
+	font-weight: bold;
+	transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cart-icon:hover {
+	background-color: var(--highlight);
+	transform: translateY(-2px);
+}
+
+/* === Buton hamburger === */
+.menu-toggle {
+	display: none;
+	background: none;
+	border: none;
+	font-size: 1.8rem;
+	cursor: pointer;
+	color: var(--primary);
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+	.menu-toggle {
+		display: block;
+	}
+
+	.navbar-links {
+		display: none;
+		flex-direction: column;
+		width: 100%;
+		background-color: rgba(255, 255, 255, 0.9);
+		position: absolute;
+		top: 70px;
+		left: 0;
+		text-align: center;
+		padding: 15px 0;
+		border-top: 2px solid var(--accent);
+		backdrop-filter: blur(5px);
+	}
+
+	.navbar-links.active {
+		display: flex;
+		animation: fadeIn 0.4s ease;
+	}
+
+	.navbar-links a {
+		padding: 10px 0;
+	}
+
+	@keyframes fadeIn {
+		from { opacity: 0; transform: translateY(-10px); }
+		to { opacity: 1; transform: translateY(0); }
+	}
+}
+
+.cart-badge {
+	position: absolute;
+	top: -8px;    /* sus de buton */
+	right: -8px;  /* la marginea dreaptă */
+	background-color: var(--highlight);
+	color: white;
+	font-size: 12px;
+	font-weight: bold;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 0 6px rgba(155, 93, 224, 0.4);
+}

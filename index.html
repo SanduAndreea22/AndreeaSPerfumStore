@@ -1,18 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Andreea's Perfum Store</title>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<h1>Andreea's Perfum Store</h1>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Andreea's Perfume Store</title>
+	<link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-		<div class="products-container"></div>
-		<script src="app.js"></script>
-	</body>
+	
+	<nav class="navbar">
+		<a href="#" class="navbar-logo">Andreea's Perfume Store</a>
+
+		<div class="navbar-links" id="navbar-links">
+			<a href="cart.html" class="cart-icon">
+  🛒 Cart
+  <span class="cart-badge">0</span>
+</a>
+				</a>
+			<a href="admin.html" class="admin-link">Admin</a>
+		</div>
+
+		<button class="menu-toggle" id="menu-toggle">☰</button>
+	</nav>
+
+	
+	<h1>Welcome to Andreea's Perfume Store</h1>
+	<div class="products-container"></div>
+
+	<script src="app.js"></script>
+
+	<script>
+		// 🔸 meniu responsive
+		const toggleBtn = document.getElementById('menu-toggle');
+		const navLinks = document.getElementById('navbar-links');
+		toggleBtn.addEventListener('click', () => {
+			navLinks.classList.toggle('active');
+		});
+	</script>
+</body>
 </html>
+
+
+
+
 
 
 
