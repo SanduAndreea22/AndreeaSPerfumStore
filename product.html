@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coș - Andreea's Perfume Store</title>
+<title>Produs Detalii - Andreea's Perfume Store</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav class="navbar">
+	<nav class="navbar">
 		  <a href="index.html" class="navbar-logo">🧴Andreea's Perfume Store</a>
 
 		<div class="navbar-links" id="navbar-links">
@@ -22,16 +22,16 @@
 
 		<button class="menu-toggle" id="menu-toggle">☰</button>
 	</nav>
-  
-<div class="cart-container">
-  <h1>Coșul tău</h1>
-  <div id="cart-items" class="cart-cards-container"></div>
-  <div class="cart-total">
-    <h2>Total: <span id="total-price">0 LEI</span></h2>
-    <button id="checkout-btn">Checkout</button>
-  </div>
+
+<div class="product-details-container">
+  <img id="product-img" src="" alt="Product Image">
+  <h2 id="product-name"></h2>
+  <p id="product-price"></p>
+  <p id="product-description"></p>
+  <button id="add-to-cart" class="cart-btn">Add to Cart</button>
 </div>
 
-<script src="cart.js"></script>
+<script src="product.js"></script>
 </body>
 </html>
+
