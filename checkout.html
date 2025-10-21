@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finalizare comandă - AndreeaSPerfumStore</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Finalizare comandă</h1>
+  </header>
+
+  <main class="checkout-container">
+    <form id="checkout-form">
+      <!-- Date livrare -->
+      <label>Nume complet:</label>
+      <input type="text" id="fullname" required>
+
+      <label>Adresă de livrare:</label>
+      <input type="text" id="address" required minlength="5">
+
+      <label>Email:</label>
+      <input type="email" id="email" required>
+
+      <!-- Metoda de plată -->
+      <label>Metodă de plată:</label>
+      <select id="payment-method" required>
+        <option value="">Alege o metodă</option>
+        <option value="card">Card</option>
+        <option value="ramburs">Ramburs la livrare</option>
+      </select>
+
+      <!-- Formular card (ascuns inițial) -->
+      <div id="card-form" style="display:none;">
+        <label>Număr card:</label>
+        <input type="text" id="card-number" placeholder="16 cifre">
+
+        <label>Data expirare:</label>
+        <input type="text" id="expiry" placeholder="MM/AA">
+
+        <label>CVV:</label>
+        <input type="text" id="cvv" placeholder="3 cifre">
+      </div>
+
+      <!-- Rezumat coș -->
+      <div class="cart-summary">
+        <h2>Rezumatul comenzii</h2>
+        <div id="cart-items"></div>
+        <div class="total" id="cart-total">Total: 0 LEI</div>
+      </div>
+
+      <button type="submit" class="btn">Plasează comanda</button>
+    </form>
+  </main>
+
+  <script src="checkout.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comandă finalizată - AndreeaSPerfumStore</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="confirmation-container">
+    <h1>🎉 Comanda ta a fost plasată cu succes!</h1>
+    <p>Mulțumim, <span id="client-name"></span>!</p>
+    <p>Comanda ta va fi livrată la adresa: <span id="client-address"></span></p>
+    <p>Confirmarea a fost trimisă la adresa: <span id="client-email"></span></p>
+    <p><strong>Metodă de plată:</strong> <span id="client-payment"></span></p>
+
+    <div id="order-summary"></div>
+
+    <button class="btn" onclick="window.location.href='index.html'">Înapoi la magazin</button>
+  </div>
+
+  <script>
+    const order = JSON.parse(localStorage.getItem('order'));
+    if (order) {
+      document.getElementById('client-name').textContent = order.name;
+      document.getElementById('client-address').textContent = order.address;
+      document.getElementById('client-email').textContent = order.email;
+      document.getElementById('client-payment').textContent = order.payment === 'card' ? 'Card' : 'Ramburs';
+
+      const summaryDiv = document.getElementById('order-summary');
+      if (order.cart && order.cart.length > 0) {
+        let html = '<h2>Produsele comandate:</h2><ul>';
+        let total = 0;
+        order.cart.forEach(item => {
+          const subtotal = item.price * item.quantity;
+          total += subtotal;
+          html += `<li>${item.name} (x${item.quantity}) - ${subtotal.toFixed(2)} lei</li>`;
+        });
+        html += `</ul><p><strong>Total:</strong> ${total.toFixed(2)} lei</p>`;
+        summaryDiv.innerHTML = html;
+      }
+
+      localStorage.removeItem('order');
+    } else {
+      document.body.innerHTML = '<h2 style="text-align:center;">Nu există nicio comandă activă.</h2>';
+    }
+  </script>
+</body>
+</html>

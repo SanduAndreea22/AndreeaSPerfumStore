@@ -46,17 +46,16 @@ cartItemsContainer.addEventListener('click', (e) => {
   }
 });
 
-// Checkout
 checkoutBtn.addEventListener('click', () => {
   if(cart.length === 0){
     alert("Coșul tău este gol!");
     return;
   }
-  alert("Mulțumim pentru comandă!");
-  cart = [];
-  localStorage.setItem('cart', JSON.stringify(cart));
-  renderCart();
+
+  // Redirecționează spre checkout.html
+  window.location.href = 'checkout.html';
 });
+
 
 // Initial render
 renderCart();
