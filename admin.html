@@ -5,28 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin - Andreea's Perfume Store</title>
 <link rel="stylesheet" href="style.css">
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
 </head>
 <body>
 
 <nav class="navbar">
-		  <a href="index.html" class="navbar-logo">🧴Andreea's Perfume Store</a>
+  <a href="index.html" class="navbar-logo">🧴Andreea's Perfume Store</a>
 
-		<div class="navbar-links" id="navbar-links">
-			<a href="cart.html" class="cart-icon">
-  🛒 Cart
-  <span class="cart-badge">0</span>
-</a>
-				</a>
-			<a href="admin.html" class="admin-link">Admin</a>
-		</div>
+  <div class="navbar-links" id="navbar-links">
+    <a href="cart.html" class="cart-icon">
+      🛒 Cart
+      <span class="cart-badge">0</span>
+    </a>
+    <a href="admin.html" class="admin-link">Admin</a>
+  </div>
 
-		<button class="menu-toggle" id="menu-toggle">☰</button>
-	</nav>
-
+  <button class="menu-toggle" id="menu-toggle">☰</button>
+</nav>
 
 <div class="admin-container">
     <h1>Admin Panel</h1>
@@ -37,6 +32,7 @@
         <input type="number" id="price" placeholder="Preț (ex: 12.5)" step="0.01" required>
         <input type="text" id="imageURL" placeholder="URL imagine" required>
         <textarea id="description" placeholder="Adaugă descrierea produsului"></textarea>
+        <input type="number" id="stock" placeholder="Stoc (ex: 10)" required>
         <button type="submit" id="add-btn">Adaugă produs</button>
     </form>
 
@@ -49,8 +45,8 @@
                     <th>Imagine</th>
                     <th>Nume</th>
                     <th>Preț</th>
+                    <th>Stock</th>
                     <th>Acțiuni</th>
-					
                 </tr>
             </thead>
             <tbody></tbody>
@@ -59,8 +55,17 @@
 </div>
 
 <script src="admin.js"></script>
+<script>
+  const toggleBtn = document.getElementById('menu-toggle');
+  const navLinks = document.getElementById('navbar-links');
+  toggleBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+  });
+</script>
 </body>
 </html>
+
+
 
 
 

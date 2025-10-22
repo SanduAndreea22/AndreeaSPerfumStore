@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Finalizare comandă - AndreeaSPerfumStore</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finalizare comandă - Andreea's Perfume Store</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
@@ -13,7 +13,6 @@
 
   <main class="checkout-container">
     <form id="checkout-form">
-      <!-- Date livrare -->
       <label>Nume complet:</label>
       <input type="text" id="fullname" required>
 
@@ -23,7 +22,6 @@
       <label>Email:</label>
       <input type="email" id="email" required>
 
-      <!-- Metoda de plată -->
       <label>Metodă de plată:</label>
       <select id="payment-method" required>
         <option value="">Alege o metodă</option>
@@ -31,7 +29,6 @@
         <option value="ramburs">Ramburs la livrare</option>
       </select>
 
-      <!-- Formular card (ascuns inițial) -->
       <div id="card-form" style="display:none;">
         <label>Număr card:</label>
         <input type="text" id="card-number" placeholder="16 cifre">
@@ -43,7 +40,6 @@
         <input type="text" id="cvv" placeholder="3 cifre">
       </div>
 
-      <!-- Rezumat coș -->
       <div class="cart-summary">
         <h2>Rezumatul comenzii</h2>
         <div id="cart-items"></div>
@@ -57,5 +53,8 @@
   <script src="checkout.js"></script>
 </body>
 </html>
+
+
+
 
 

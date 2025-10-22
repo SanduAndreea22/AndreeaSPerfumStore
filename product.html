@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Produs Detalii - Andreea's Perfume Store</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produs Detalii - Andreea's Perfume Store</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-	<nav class="navbar">
-		  <a href="index.html" class="navbar-logo">🧴Andreea's Perfume Store</a>
+  <nav class="navbar">
+    <a href="index.html" class="navbar-logo">🧴Andreea's Perfume Store</a>
 
-		<div class="navbar-links" id="navbar-links">
-			<a href="cart.html" class="cart-icon">
-  🛒 Cart
-  <span class="cart-badge">0</span>
-</a>
-				</a>
-			<a href="admin.html" class="admin-link">Admin</a>
-		</div>
+    <div class="navbar-links" id="navbar-links">
+      <a href="cart.html" class="cart-icon">
+        🛒 Cart <span class="cart-badge">0</span>
+      </a>
+      <a href="admin.html" class="admin-link">Admin</a>
+    </div>
 
-		<button class="menu-toggle" id="menu-toggle">☰</button>
-	</nav>
+    <button class="menu-toggle" id="menu-toggle">☰</button>
+  </nav>
 
-<div class="product-details-container">
-  <img id="product-img" src="" alt="Product Image">
-  <h2 id="product-name"></h2>
-  <p id="product-price"></p>
-  <p id="product-description"></p>
-  <button id="add-to-cart" class="cart-btn">Add to Cart</button>
-</div>
+  <!-- Mesaj de confirmare -->
+  <div id="alert-message" class="alert-message" style="display:none;"></div>
 
-<script src="product.js"></script>
+  <div class="product-details-container">
+    <img id="product-img" src="" alt="Product Image">
+    <h2 id="product-name"></h2>
+    <p id="product-price"></p>
+    <p id="product-description"></p>
+    <p id="product-stock"></p>
+    <button id="add-to-cart" class="cart-btn">Adaugă în coș</button>
+  </div>
+
+  <script src="product.js"></script>
 </body>
 </html>
+
+
 

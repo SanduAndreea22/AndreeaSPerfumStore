@@ -1,13 +1,15 @@
-// === Elemente ===
 const cartItemsContainer = document.getElementById('cart-items');
 const cartTotalEl = document.getElementById('cart-total');
 const checkoutForm = document.getElementById('checkout-form');
 const paymentSelect = document.getElementById('payment-method');
 const cardForm = document.getElementById('card-form');
 
-// === Afișează produsele din coș ===
+const URL = 'https://68e5512421dd31f22cc16352.mockapi.io/products';
+
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+// === Afișare coș ===
 function displayCartSummary() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
   cartItemsContainer.innerHTML = '';
 
   if (cart.length === 0) {
@@ -18,14 +20,14 @@ function displayCartSummary() {
 
   let total = 0;
   cart.forEach(item => {
+    const quantity = item.quantity || 1;
+    total += item.price * quantity;
+
     const itemDiv = document.createElement('div');
     itemDiv.classList.add('cart-item');
-    const quantity = item.quantity || 1;
     itemDiv.innerHTML = `
-      <span>${item.name} (x${quantity})</span>
-      <span>${(item.price * quantity).toFixed(2)} LEI</span>
+      <a href="product.html?id=${item.id}">${item.name}</a> x${quantity} - ${(item.price * quantity).toFixed(2)} LEI
     `;
-    total += item.price * quantity;
     cartItemsContainer.appendChild(itemDiv);
   });
 
@@ -34,15 +36,11 @@ function displayCartSummary() {
 
 // === Afișare/ascundere formular card ===
 paymentSelect.addEventListener('change', () => {
-  if (paymentSelect.value === 'card') {
-    cardForm.style.display = 'block';
-  } else {
-    cardForm.style.display = 'none';
-  }
+  cardForm.style.display = paymentSelect.value === 'card' ? 'block' : 'none';
 });
 
-// === Popup vizual de confirmare ===
-function showPopup(message) {
+// === Popup confirmare ===
+function showPopup(message){
   const popup = document.createElement('div');
   popup.classList.add('popup-overlay');
   popup.innerHTML = `
@@ -55,7 +53,6 @@ function showPopup(message) {
   document.body.appendChild(popup);
   setTimeout(() => popup.classList.add('show'), 100);
 
-  // După 2 secunde, închidem popup-ul și mergem la confirmare
   setTimeout(() => {
     popup.classList.remove('show');
     setTimeout(() => {
@@ -65,8 +62,28 @@ function showPopup(message) {
   }, 2000);
 }
 
-// === Gestionarea formularului ===
-checkoutForm.addEventListener('submit', function (e) {
+// === Actualizare stoc produse ===
+async function updateStock() {
+  for (const item of cart) {
+    try {
+      const res = await fetch(`${URL}/${item.id}`);
+      if (!res.ok) throw new Error("Produsul nu a fost găsit");
+      const product = await res.json();
+
+      const newStock = (product.stock || 0) - (item.quantity || 1);
+      await fetch(`${URL}/${item.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...product, stock: newStock })
+      });
+    } catch (err) {
+      console.error("Eroare la actualizarea stocului:", err);
+    }
+  }
+}
+
+// === Trimitere formular ===
+checkoutForm.addEventListener('submit', async e => {
   e.preventDefault();
 
   const name = document.getElementById('fullname').value.trim();
@@ -74,54 +91,56 @@ checkoutForm.addEventListener('submit', function (e) {
   const email = document.getElementById('email').value.trim();
   const payment = paymentSelect.value;
 
-  if (name.length < 3 || address.length < 5) {
+  if(name.length < 3 || address.length < 5){
     alert("Te rugăm să introduci un nume și o adresă valide.");
     return;
   }
 
-  if (!email.includes('@') || !email.includes('.')) {
-    alert("Adresa de email nu este validă.");
+  if(!email.includes('@') || !email.includes('.')){
+    alert("Email invalid.");
     return;
   }
 
-  // Validare detalii card dacă metoda este Card
-  if (payment === 'card') {
+  if(payment === 'card'){
     const cardNumber = document.getElementById('card-number').value.trim();
     const expiry = document.getElementById('expiry').value.trim();
     const cvv = document.getElementById('cvv').value.trim();
 
-    if (cardNumber.length !== 16 || isNaN(cardNumber)) {
+    if(cardNumber.length !== 16 || isNaN(cardNumber)){
       alert("Număr card invalid!");
       return;
     }
-    if (!/^\d{2}\/\d{2}$/.test(expiry)) {
+    if(!/^\d{2}\/\d{2}$/.test(expiry)){
       alert("Data expirare trebuie în format MM/AA!");
       return;
     }
-    if (cvv.length !== 3 || isNaN(cvv)) {
+    if(cvv.length !== 3 || isNaN(cvv)){
       alert("CVV invalid!");
       return;
     }
   }
 
-  // Salvare comanda
-  const order = {
-    name,
-    address,
-    email,
-    payment,
-    cart: JSON.parse(localStorage.getItem('cart')) || []
-  };
+  if(cart.length === 0){
+    alert("Coșul tău este gol!");
+    return;
+  }
 
+  // Salvare comanda
+  const order = { name, address, email, payment, cart };
   localStorage.setItem('order', JSON.stringify(order));
+
+  // Actualizare stoc
+  await updateStock();
+
+  // Golește coșul
   localStorage.removeItem('cart');
 
-  // Afișare popup
   const paymentMessage = payment === 'card' ? "Plata cu cardul a fost efectuată!" : "Comanda va fi plătită ramburs!";
   showPopup(paymentMessage);
 });
 
 // === Initial render ===
 displayCartSummary();
+
 
 

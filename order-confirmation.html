@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Comandă finalizată - AndreeaSPerfumStore</title>
+  <title>Comandă finalizată - Andreea's Perfume Store</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -21,6 +21,7 @@
 
   <script>
     const order = JSON.parse(localStorage.getItem('order'));
+
     if (order) {
       document.getElementById('client-name').textContent = order.name;
       document.getElementById('client-address').textContent = order.address;
@@ -28,18 +29,28 @@
       document.getElementById('client-payment').textContent = order.payment === 'card' ? 'Card' : 'Ramburs';
 
       const summaryDiv = document.getElementById('order-summary');
+
       if (order.cart && order.cart.length > 0) {
         let html = '<h2>Produsele comandate:</h2><ul>';
         let total = 0;
+
         order.cart.forEach(item => {
-          const subtotal = item.price * item.quantity;
+          // Cantitate implicită 1 dacă nu există
+          const quantity = item.quantity || 1;
+          const subtotal = parseFloat(item.price) * quantity;
           total += subtotal;
-          html += `<li>${item.name} (x${item.quantity}) - ${subtotal.toFixed(2)} lei</li>`;
+
+          // Link spre pagina de detalii
+          html += `<li><a href="product.html?id=${item.id}">${item.name}</a> (x${quantity}) - ${subtotal.toFixed(2)} LEI</li>`;
         });
-        html += `</ul><p><strong>Total:</strong> ${total.toFixed(2)} lei</p>`;
+
+        html += `</ul><p><strong>Total:</strong> ${total.toFixed(2)} LEI</p>`;
         summaryDiv.innerHTML = html;
+      } else {
+        summaryDiv.innerHTML = "<p>Coșul tău era gol.</p>";
       }
 
+      // Șterge comanda din localStorage după afișare
       localStorage.removeItem('order');
     } else {
       document.body.innerHTML = '<h2 style="text-align:center;">Nu există nicio comandă activă.</h2>';
@@ -47,3 +58,4 @@
   </script>
 </body>
 </html>
+

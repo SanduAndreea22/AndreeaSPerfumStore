@@ -25,6 +25,7 @@ function renderProducts(products) {
             <td><img src="${product.imageURL}" class="product-img"></td>
             <td>${product.name}</td>
             <td>${parseFloat(product.price).toFixed(2)} RON</td>
+            <td>${product.stock}</td>
             <td>
                 <button class="edit-btn" data-id="${product.id}">
                     <i class="fa-solid fa-pen-to-square"></i>
@@ -55,14 +56,15 @@ addForm.addEventListener('submit', async (e) => {
     const price = parseFloat(document.getElementById('price').value);
     const imageURL = document.getElementById('imageURL').value.trim();
     const description = document.getElementById('description').value.trim();
+    const stock = parseInt(document.getElementById('stock').value);
 
     // Validare simpla
-    if (!name || !imageURL || isNaN(price)) {
-        alert('Completează corect numele, prețul și imaginea produsului!');
+    if (!name || !imageURL || isNaN(price) || isNaN(stock) || stock < 0) {
+        alert('Completează corect numele, prețul, imaginea și stocul produsului!');
         return;
     }
 
-    const productData = { name, price: price.toFixed(2), imageURL, description };
+    const productData = { name, price, imageURL, description, stock };
 
     try {
         if (editingId) {
@@ -119,6 +121,7 @@ async function editProduct(id) {
         document.getElementById('price').value = product.price;
         document.getElementById('imageURL').value = product.imageURL;
         document.getElementById('description').value = product.description;
+        document.getElementById('stock').value = product.stock || 0;
 
         editingId = id;
         document.getElementById('add-btn').textContent = 'Salvează modificări';
@@ -129,6 +132,7 @@ async function editProduct(id) {
 
 // Incarcare initiala produse
 fetchProducts();
+
 
 
 
